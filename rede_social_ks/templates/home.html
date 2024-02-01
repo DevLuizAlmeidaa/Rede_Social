@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+
+        <div class="container mt-3">
+            <h1 style="color:#e6e6e6 ;">KS - Rede</h1>
+            <h3 style="color:#e6e6e6 ;">Desenvolvedores - Back e Front</h3>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <a href="{{ url_for('criar_post') }}" ><button type="button" class="btn btn-success">Criar novo Post</button></a>
+            </div>
+            <hr style="color: black;">
+            {% for post in posts %}
+                <div class="row border mt-4 p-3 meupost">
+                    <div class="col col-2 ">
+                        <div class="image pe-2"><img src="{{ url_for('static', filename='fotos_perfil/{}'. format(post.autor.foto_perfil)) }}" class="rounded" width="155" ></div>
+                        <strong>{{ post.autor.username }}</strong>
+                        <div class="row justify-content-center">
+                                {% for linguagem in post.autor.linguagem_programacao.split(';') %}
+                                    <button type="button" class="btn btn-info mt-2" disabled>{{ linguagem }}</button>
+                                {% endfor %}
+                         </div>
+                    </div>
+                    <div class="col-9">
+                        <a style="text-decoration: none;" href="{{ url_for('exibir_post', post_id=post.id) }}"><h3>{{ post.titulo }}</h3></a>
+                        <p>{{ post.corpo }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+<div class="row mt-5"></div>
+
+{% endblock %}
